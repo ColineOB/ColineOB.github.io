@@ -1,9 +1,20 @@
 'use client';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
+import { useAutoScroll } from '@/hooks/useAutoScroll';
 import Image from 'next/image';
+import { useEffect, useState } from 'react';
 
 export default function SkillsSection() {
   const { elementRef, isVisible } = useScrollReveal(0.1, 0);
+  const [speed, setSpeed] = useState(0.4);
+  const scrollRef = useAutoScroll(speed);
+
+  // Ajuste vitesse
+  useEffect(() => {
+    if (typeof window !== 'undefined' && window.innerWidth < 768) {
+      setSpeed(0.8);
+    }
+  }, []);
 
   const skills = [
     { name: 'HTML5', file: 'HTML5.png' },
@@ -34,12 +45,11 @@ export default function SkillsSection() {
     <section
       ref={elementRef}
       className={`reveal z-10 mx-auto py-12 ${isVisible ? 'reveal-active' : ''}`}
-      aria-labelledby="skills-heading"
     >
       <div className="w-full overflow-hidden">
-        <ul className="animate-marquee flex w-max gap-6 py-3" role="list">
+        <div ref={scrollRef} className="animate-marquee flex w-max py-3">
           {[...skills, ...skills].map((skill, index) => (
-            <li
+            <div
               key={index}
               className="group relative flex h-24 w-24 flex-shrink-0 flex-col items-center justify-center transition-transform duration-300 hover:scale-110"
             >
@@ -55,9 +65,9 @@ export default function SkillsSection() {
               <span className="mt-1 text-[0.7rem] text-gray-300 opacity-100 transition-opacity duration-300 group-hover:opacity-100 sm:opacity-0">
                 {skill.name}
               </span>
-            </li>
+            </div>
           ))}
-        </ul>
+        </div>
       </div>
     </section>
   );
