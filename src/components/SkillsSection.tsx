@@ -2,7 +2,7 @@
 import { useScrollReveal } from '@/hooks/useScrollReveal';
 import { useAutoScroll } from '@/hooks/useAutoScroll';
 import Image from 'next/image';
-import { useEffect, useState } from 'react';
+import { useLayoutEffect, useState } from 'react';
 
 export default function SkillsSection() {
   const { elementRef, isVisible } = useScrollReveal(0.1, 0);
@@ -10,10 +10,9 @@ export default function SkillsSection() {
   const scrollRef = useAutoScroll(speed);
 
   // Ajuste vitesse
-  useEffect(() => {
-    if (typeof window !== 'undefined' && window.innerWidth < 768) {
-      setSpeed(0.8);
-    }
+  useLayoutEffect(() => {
+    const isMobile = window.matchMedia('(max-width: 768px)').matches;
+    setSpeed(isMobile ? 0.8 : 0.4);
   }, []);
 
   const skills = [
