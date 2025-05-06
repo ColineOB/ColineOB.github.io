@@ -64,6 +64,7 @@ export default function ContactSection() {
           <button
             type="submit"
             className="mt-4 rounded-md bg-neon px-6 py-3 font-semibold text-black transition hover:brightness-110"
+            aria-label="Envoyer le message"
           >
             Envoyer
           </button>
@@ -78,6 +79,7 @@ export default function ContactSection() {
           <a
             href="mailto:coline.cantelou@gmail.com"
             className="text-neon underline underline-offset-2"
+            aria-label="lien email"
           >
             coline.cantelou@gmail.com
           </a>

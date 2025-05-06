@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 /* ===========================
-   🎨 THEME VARIABLES
+   THEME VARIABLES
    =========================== */
 @theme {
   /* Steel Gray Palette */
@@ -34,7 +34,7 @@
 }
 
 /* ===========================
-   🔧 UTILITIES
+   UTILITIES
    =========================== */
 @layer utilities {
   /* Scrollbar */
@@ -145,7 +145,7 @@
 }
 
 /* ===========================
-   🎞️ KEYFRAMES
+   KEYFRAMES
    =========================== */
 @keyframes scroll-left {
   0% {
@@ -208,7 +208,7 @@
 }
 
 /* ===========================
-   🌍 GLOBAL RESET
+   GLOBAL RESET
    =========================== */
 html, body {
   overflow-x: hidden;

@@ -35,7 +35,12 @@ export default function ProjectsSection() {
       <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
         {projects.map((project, index) => (
           <div key={index} className="neumorph-card p-4">
-            <a href={project.link} target="_blank" rel="noopener noreferrer">
+            <a
+              href={project.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={project.title}
+            >
               <Image
                 src={project.image}
                 alt={project.title}
