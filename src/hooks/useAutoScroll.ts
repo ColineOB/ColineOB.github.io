@@ -31,7 +31,6 @@ export function useAutoScroll(speed = 0.3) {
     el.addEventListener('touchend', resume)
 
     frameId = requestAnimationFrame(scroll)
-
     return () => {
       cancelAnimationFrame(frameId)
       el.removeEventListener('mouseenter', pause)
