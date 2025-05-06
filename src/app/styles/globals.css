@@ -71,6 +71,15 @@
     border-radius: 30px;
     box-shadow: inset 6px 6px 12px var(--color-steel-gray-700), inset -6px -6px 12px var(--color-steel-gray-200);
   }
+  .neumorph-card-hover {
+    transition: all 0.3s ease;
+    transform: translateY(0);
+  }
+  .neumorph-card-hover:hover {
+    transform: translateY(-6px) scale(1.02);
+    box-shadow: 12px 12px 24px var(--color-steel-gray-800),
+                -6px -6px 12px var(--color-steel-gray-300);
+  }
 
   /* Rounded Logos */
   .neumorph-rounded {

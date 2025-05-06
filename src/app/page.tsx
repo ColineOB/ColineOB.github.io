@@ -7,7 +7,7 @@ import SkillsSection from '@/components/SkillsSection';
 
 export default function HomePage() {
   return (
-    <main className="bg-steel-gray-500 text-gray-100">
+    <main className="text-gray-100">
       <HeroSection />
       <SkillsSection />
       <ServicesSection />

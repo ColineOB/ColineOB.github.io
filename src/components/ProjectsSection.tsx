@@ -34,20 +34,11 @@ export default function ProjectsSection() {
 
       <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
         {projects.map((project, index) => (
-          <div key={index} className="neumorph-card p-4">
-            <a
-              href={project.link}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={project.title}
-            >
-              <Image
-                src={project.image}
-                alt={project.title}
-                width={600}
-                height={400}
-                className="rounded-lg"
-              />
+          <div key={index} className="neumorph-card neumorph-card-hover p-4">
+            <a href={project.link} target="_blank" rel="noopener noreferrer">
+              <div className="relative aspect-[3/2] w-full overflow-hidden rounded-lg">
+                <Image src={project.image} alt={project.title} fill className="object-cover" />
+              </div>
               <h3 className="mt-2 text-xl font-bold">{project.title}</h3>
               <p className="text-sm text-gray-300">{project.description}</p>
             </a>

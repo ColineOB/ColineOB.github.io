@@ -63,7 +63,7 @@ export default function ContactSection() {
 
           <button
             type="submit"
-            className="mt-4 rounded-md bg-neon px-6 py-3 font-semibold text-black transition hover:brightness-110"
+            className="neumorph-button mt-4 px-6 py-3 text-sm font-semibold text-white hover:brightness-110"
             aria-label="Envoyer le message"
           >
             Envoyer
@@ -71,7 +71,9 @@ export default function ContactSection() {
         </form>
 
         {sent && (
-          <p className="mt-4 text-center text-sm text-green-400">✅ Message envoyé avec succès !</p>
+          <p className="text-tulip-tree-500 mt-4 text-center text-sm">
+            Message envoyé avec succès !
+          </p>
         )}
 
         <p className="mt-6 text-center text-sm text-gray-400">
