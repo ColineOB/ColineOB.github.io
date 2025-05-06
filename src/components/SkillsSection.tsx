@@ -1,11 +1,11 @@
-'use client'
-import { useScrollReveal } from '@/hooks/useScrollReveal'
-import { useAutoScroll } from '@/hooks/useAutoScroll'
-import Image from 'next/image'
+'use client';
+import { useScrollReveal } from '@/hooks/useScrollReveal';
+import { useAutoScroll } from '@/hooks/useAutoScroll';
+import Image from 'next/image';
 
 export default function SkillsSection() {
-  const { elementRef, isVisible } = useScrollReveal(0.1, 0)
-  const scrollRef = useAutoScroll(0.4)
+  const { elementRef, isVisible } = useScrollReveal(0.1, 0);
+  const scrollRef = useAutoScroll(0.4);
 
   const skills = [
     { name: 'HTML5', file: 'HTML5.png' },
@@ -22,7 +22,7 @@ export default function SkillsSection() {
     { name: 'PrestaShop', file: 'PrestaShop.png' },
     { name: 'Tailwind CSS', file: 'Tailwind.png' },
     { name: 'SCSS', file: 'Sass.png' },
-    { name: 'Responsive Design', file: 'Responsive.png' },
+    { name: 'Responsive', file: 'Responsive.png' },
     { name: 'Intégration Figma', file: 'Figma.png' },
     { name: 'Photoshop', file: 'Photoshop.png' },
     { name: 'Illustrator', file: 'Illustrator.png' },
@@ -30,37 +30,32 @@ export default function SkillsSection() {
     { name: 'SEO', file: 'SEO.png' },
     { name: 'Netlify', file: 'Netlify.png' },
     { name: 'Vercel', file: 'Vercel.png' },
-  ]
+  ];
 
-  const duplicated = [...skills, ...skills]
+  const duplicated = [...skills, ...skills];
 
   return (
     <section
       ref={elementRef}
-      className={`reveal z-10 mx-auto px-4 py-12 sm:px-6 lg:px-20 ${
-        isVisible ? 'reveal-active' : ''
-      }`}
+      className={`reveal z-10 mx-auto py-12 ${isVisible ? 'reveal-active' : ''}`}
     >
-      <div className="group relative w-full overflow-hidden">
-        <div
-          ref={scrollRef}
-          className="flex min-w-[200%] gap-6 overflow-x-auto no-scrollbar"
-        >
-          {duplicated.map((skill, index) => (
+      <div className="w-full overflow-hidden">
+        <div className="animate-marquee flex w-max py-3">
+          {[...skills, ...skills].map((skill, index) => (
             <div
               key={index}
-              className="group relative flex h-24 w-24 flex-shrink-0 flex-col items-center justify-center p-2 transition-transform duration-300 hover:scale-110"
+              className="group relative flex h-24 w-24 flex-shrink-0 flex-col items-center justify-center transition-transform duration-300 hover:scale-110"
             >
-              <div className="neumorph-rounded-int flex h-20 w-20 items-center justify-center">
+              <div className="neumorph-rounded-int relative flex h-20 w-20 items-center justify-center">
                 <Image
                   src={`/images/logo/${skill.file}`}
                   alt={skill.name}
-                  width={42}
-                  height={42}
-                  style={{ height: 'auto' }}
+                  width={32}
+                  height={32}
+                  className="object-contain"
                 />
               </div>
-              <span className="mt-1 text-[0.7rem] text-gray-300 opacity-100 transition-opacity duration-300 sm:opacity-0 group-hover:opacity-100">
+              <span className="mt-1 text-[0.7rem] text-gray-300 opacity-100 transition-opacity duration-300 group-hover:opacity-100 sm:opacity-0">
                 {skill.name}
               </span>
             </div>
@@ -68,5 +63,5 @@ export default function SkillsSection() {
         </div>
       </div>
     </section>
-  )
+  );
 }

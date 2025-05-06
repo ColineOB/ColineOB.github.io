@@ -1,6 +1,10 @@
 @import "tailwindcss";
 
+/* ===========================
+   🎨 THEME VARIABLES
+   =========================== */
 @theme {
+  /* Steel Gray Palette */
   --color-steel-gray: oklch(15.479% 0.0021 286.15);
   --color-steel-gray-50: oklch(25.319% 0.00559 285.99);
   --color-steel-gray-100: oklch(24.435% 0.00375 286.12);
@@ -13,67 +17,71 @@
   --color-steel-gray-800: oklch(11.492% 0 none);
   --color-steel-gray-900: oklch(8.4673% 0 none);
   --color-steel-gray-950: oklch(6.7205% 0 none);
---color-tulip-tree: oklch(77.927% 0.14333 80.64);
---color-tulip-tree-50: oklch(88.897% 0.08063 85.028);
---color-tulip-tree-100: oklch(87.535% 0.08853 84.828);
---color-tulip-tree-200: oklch(85.21% 0.10595 84.269);
---color-tulip-tree-300: oklch(82.653% 0.12085 83.25);
---color-tulip-tree-400: oklch(80.36% 0.13327 82.446);
---color-tulip-tree-500: oklch(77.927% 0.14333 80.64);
---color-tulip-tree-600: oklch(75.568% 0.15004 78.165);
---color-tulip-tree-700: oklch(70.539% 0.14114 77.632);
---color-tulip-tree-800: oklch(64.768% 0.12902 78.022);
---color-tulip-tree-900: oklch(58.985% 0.11711 77.925);
---color-tulip-tree-950: oklch(55.718% 0.11021 77.531);
+
+  /* Tulip Tree Palette */
+  --color-tulip-tree: oklch(77.927% 0.14333 80.64);
+  --color-tulip-tree-50: oklch(88.897% 0.08063 85.028);
+  --color-tulip-tree-100: oklch(87.535% 0.08853 84.828);
+  --color-tulip-tree-200: oklch(85.21% 0.10595 84.269);
+  --color-tulip-tree-300: oklch(82.653% 0.12085 83.25);
+  --color-tulip-tree-400: oklch(80.36% 0.13327 82.446);
+  --color-tulip-tree-500: oklch(77.927% 0.14333 80.64);
+  --color-tulip-tree-600: oklch(75.568% 0.15004 78.165);
+  --color-tulip-tree-700: oklch(70.539% 0.14114 77.632);
+  --color-tulip-tree-800: oklch(64.768% 0.12902 78.022);
+  --color-tulip-tree-900: oklch(58.985% 0.11711 77.925);
+  --color-tulip-tree-950: oklch(55.718% 0.11021 77.531);
 }
 
+/* ===========================
+   🔧 UTILITIES
+   =========================== */
 @layer utilities {
+  /* Scrollbar */
   .no-scrollbar {
-    scrollbar-width: none; /* Firefox */
+    scrollbar-width: none;
   }
   .no-scrollbar::-webkit-scrollbar {
-    display: none; /* Chrome/Safari */
+    display: none;
   }
-  
+
+  /* Buttons */
   .neumorph-button {
     border: var(--color-tulip-tree-300) 2px solid;
     border-radius: 20px;
     background: linear-gradient(145deg, var(--color-tulip-tree-400), var(--color-tulip-tree-600));
-    box-shadow:  6px 6px 12px var(--color-steel-gray-700),
-             -6px -6px 12px var(--color-steel-gray-300);
+    box-shadow: 6px 6px 12px var(--color-steel-gray-700), -6px -6px 12px var(--color-steel-gray-300);
   }
-  .neumorph-button:hover  {
+  .neumorph-button:hover {
     background: linear-gradient(145deg, var(--color-tulip-tree-600), var(--color-tulip-tree-400));
-    box-shadow:  5px 5px 10px var(--color-steel-gray-700),
-             -5px -5px 10px var(--color-steel-gray-300);
+    box-shadow: 5px 5px 10px var(--color-steel-gray-700), -5px -5px 10px var(--color-steel-gray-300);
   }
+
+  /* Cards */
   .neumorph-card {
     background-color: var(--color-steel-gray-500);
     border-radius: 30px;
-    box-shadow:  
-             3px 3px 5px var(--color-steel-gray-800);
+    box-shadow: 3px 3px 5px var(--color-steel-gray-800);
   }
   .neumorph-card:hover {
+    box-shadow: 10px 10px 5px var(--color-steel-gray-800);
     transition: all 0.2s ease-in-out;
-    border-radius: 30px;
-    box-shadow:  
-             10px 10px 5px var(--color-steel-gray-800);
   }
   .neumorph-card-preset {
     border-radius: 30px;
-    box-shadow:  inset 6px 6px 12px var(--color-steel-gray-700),
-    inset -6px -6px 12px var(--color-steel-gray-200);
+    box-shadow: inset 6px 6px 12px var(--color-steel-gray-700), inset -6px -6px 12px var(--color-steel-gray-200);
   }
-  .neumorph-text {
-    text-shadow: 12px 12px 0px var(--color-tulip-tree-500);
-  }
+
+  /* Rounded Logos */
   .neumorph-rounded {
     background-color: var(--color-steel-gray-400);
     border-radius: 9999px;
-    box-shadow:  
-             3px 3px 5px var(--color-steel-gray-800);
+    box-shadow: 3px 3px 5px var(--color-steel-gray-800);
   }
   .neumorph-rounded-int {
+    position: relative;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
     background: #fff;
     border-radius: 9999px;
     opacity: 0.9;
@@ -82,7 +90,6 @@
       inset 3px 3px 6px var(--color-steel-gray-800);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
   }
-
   .neumorph-rounded:hover .neumorph-rounded-int {
     transform: scale(1.05);
     box-shadow:
@@ -90,37 +97,64 @@
       inset 4px 4px 10px var(--color-steel-gray-300);
   }
 
+  /* Text Effects */
+  .neumorph-text {
+    text-shadow: 12px 12px 0px var(--color-tulip-tree-500);
+  }
+  .text-neon {
+    color: #e6ac37;
+  }
+  .neon-glow {
+    text-shadow: 0 0 5px #a855f7, 0 0 10px #a855f7;
+  }
+
+  /* Animations */
   .animate-fade-in-up {
     opacity: 0;
     text-shadow: 0px 0px 0px var(--color-tulip-tree-500);
     transform: translateY(10px) translateX(10px);
     animation: fadeInUp-sm 1s ease-out forwards;
   }
+
+  .group:hover .animate-scroll {
+    animation-play-state: paused;
+  }
+
+  .animate-marquee {
+    animation: scroll-left 30s linear infinite;
+  }
+  .animate-marquee:hover {
+    animation-play-state: paused;
+  }
+
+  /* Reveal effect */
   .reveal {
     opacity: 0;
     transform: translateY(-10px) translateX(-10px);
     transition: all 1s ease-out;
   }
-
   .reveal-active {
     opacity: 1;
     transform: translateY(0);
   }
 
-  .group:hover .animate-scroll {
-    animation-play-state: paused;
-  }
-  
-  @keyframes scroll {
-    0% {
-      transform: translateX(0%);
-    }
-    100% {
-      transform: translateX(-50%);
-    }
+  /* Section container */
+  .section-container {
+    @apply mx-auto px-4 py-16 md:px-8;
   }
 }
 
+/* ===========================
+   🎞️ KEYFRAMES
+   =========================== */
+@keyframes scroll-left {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
 
 @keyframes fadeInUp-sm {
   0% {
@@ -135,38 +169,11 @@
   }
 }
 
-html, body {
-  overflow-x: hidden;
-} 
-
-body { 
-  color: #e5e7eb;                  
-  font-family: 'Inter', sans-serif;
-  line-height: 1.6;
-  scroll-behavior: smooth;
-}
-
-
-.text-neon {
-  color: #e6ac37;
-}
-
-.neon-glow {
-  text-shadow: 0 0 5px #a855f7, 0 0 10px #a855f7;
-}
-
-.section-container {
-  @apply mx-auto px-4 md:px-8 py-16;
-}
-
 @media (min-width: 640px) {
   .animate-fade-in-up {
-    opacity: 0;
-    text-shadow: 0px 0px 0px var(--color-tulip-tree-500);
-    transform: translateY(10px) translateX(10px);
     animation: fadeInUp-md 1s ease-out forwards;
   }
-  
+
   @keyframes fadeInUp-md {
     0% {
       opacity: 0;
@@ -179,14 +186,10 @@ body {
       text-shadow: 7px 7px 0px var(--color-tulip-tree-500);
     }
   }
-  
 }
 
 @media (min-width: 1024px) {
   .animate-fade-in-up {
-    opacity: 0;
-    text-shadow: 0px 0px 0px var(--color-tulip-tree-500);
-    transform: translateY(10px) translateX(10px);
     animation: fadeInUp-lg 1s ease-out forwards;
   }
 
@@ -202,4 +205,19 @@ body {
       text-shadow: 10px 10px 0px var(--color-tulip-tree-500);
     }
   }
+}
+
+/* ===========================
+   🌍 GLOBAL RESET
+   =========================== */
+html, body {
+  overflow-x: hidden;
+}
+
+body {
+  color: #e5e7eb;
+  font-family: 'Inter', sans-serif;
+  line-height: 1.6;
+  scroll-behavior: smooth;
+  overscroll-behavior-y: none;
 }

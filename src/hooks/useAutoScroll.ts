@@ -12,15 +12,23 @@ export function useAutoScroll(speed = 0.3) {
     let frameId: number
 
     const scroll = () => {
-        console.log('scrolling')
-      if (!isPausedRef.current) {
+      if (!isPausedRef.current && el.scrollWidth > el.clientWidth) {
         el.scrollLeft += speed
-        if (el.scrollLeft >= el.scrollWidth / 2) {
+
+        // Rebouclage quand on atteint la fin
+        if (el.scrollLeft >= el.scrollWidth - el.clientWidth) {
           el.scrollLeft = 0
         }
       }
       frameId = requestAnimationFrame(scroll)
     }
+
+    // Petit hack pour forcer un scroll initial (sinon rien ne démarre)
+    
+setTimeout(() => {
+  el.scrollLeft = 1
+  scroll()
+}, 100)
 
     const pause = () => (isPausedRef.current = true)
     const resume = () => (isPausedRef.current = false)
@@ -30,7 +38,6 @@ export function useAutoScroll(speed = 0.3) {
     el.addEventListener('touchstart', pause)
     el.addEventListener('touchend', resume)
 
-    frameId = requestAnimationFrame(scroll)
     return () => {
       cancelAnimationFrame(frameId)
       el.removeEventListener('mouseenter', pause)
@@ -42,4 +49,3 @@ export function useAutoScroll(speed = 0.3) {
 
   return containerRef
 }
-
