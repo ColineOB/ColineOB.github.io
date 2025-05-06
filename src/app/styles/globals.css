@@ -28,6 +28,13 @@
 }
 
 @layer utilities {
+  .no-scrollbar {
+    scrollbar-width: none; /* Firefox */
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none; /* Chrome/Safari */
+  }
+  
   .neumorph-button {
     border: var(--color-tulip-tree-300) 2px solid;
     border-radius: 20px;
@@ -98,10 +105,6 @@
   .reveal-active {
     opacity: 1;
     transform: translateY(0);
-  }
-
-  .animate-scroll {
-    animation: scroll 30s linear infinite;
   }
 
   .group:hover .animate-scroll {
