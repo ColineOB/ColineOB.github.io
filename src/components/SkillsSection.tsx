@@ -1,11 +1,9 @@
 'use client';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
-import { useAutoScroll } from '@/hooks/useAutoScroll';
 import Image from 'next/image';
 
 export default function SkillsSection() {
   const { elementRef, isVisible } = useScrollReveal(0.1, 0);
-  const scrollRef = useAutoScroll(0.4);
 
   const skills = [
     { name: 'HTML5', file: 'HTML5.png' },
@@ -31,8 +29,6 @@ export default function SkillsSection() {
     { name: 'Netlify', file: 'Netlify.png' },
     { name: 'Vercel', file: 'Vercel.png' },
   ];
-
-  const duplicated = [...skills, ...skills];
 
   return (
     <section
