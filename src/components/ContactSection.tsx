@@ -5,13 +5,46 @@ import { useState, useEffect } from 'react';
 export default function ContactSection() {
   const { elementRef, isVisible } = useScrollReveal();
   const [sent, setSent] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
 
   useEffect(() => {
-    if (sent) {
-      const timer = setTimeout(() => setSent(false), 5000);
+    if (sent || error) {
+      const timer = setTimeout(() => {
+        setSent(false);
+        setError(false);
+      }, 5000);
       return () => clearTimeout(timer);
     }
-  }, [sent]);
+  }, [sent, error]);
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setLoading(true);
+    setError(false);
+
+    const form = e.currentTarget;
+    const data = new FormData(form);
+
+    try {
+      const res = await fetch('https://formspree.io/f/xwpooznr', {
+        method: 'POST',
+        headers: { Accept: 'application/json' },
+        body: data,
+      });
+
+      if (res.ok) {
+        setSent(true);
+        form.reset();
+      } else {
+        setError(true);
+      }
+    } catch {
+      setError(true);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <section
@@ -22,12 +55,7 @@ export default function ContactSection() {
       <h2 className="mb-10 text-center text-3xl font-bold">Contact</h2>
 
       <div className="neumorph-card mx-auto max-w-xl p-6">
-        <form
-          action="https://formspree.io/f/xwpooznr"
-          method="POST"
-          onSubmit={() => setSent(true)}
-          className="flex flex-col gap-4"
-        >
+        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
           <div>
             <label className="mb-1 block text-sm text-gray-300">Nom</label>
             <input
@@ -63,18 +91,17 @@ export default function ContactSection() {
 
           <button
             type="submit"
-            className="neumorph-button mt-4 px-6 py-3 text-sm font-semibold text-white hover:brightness-110"
-            aria-label="Envoyer le message"
+            className="neumorph-button mt-4 px-6 py-3 text-sm font-semibold text-white hover:brightness-110 disabled:opacity-50"
+            disabled={loading}
           >
-            Envoyer
+            {loading ? 'Envoi...' : 'Envoyer'}
           </button>
         </form>
 
-        {sent && (
-          <p className="text-tulip-tree-500 mt-4 text-center text-sm">
-            Message envoyé avec succès !
-          </p>
-        )}
+        <div aria-live="polite" className="mt-4 text-center text-sm">
+          {sent && <p className="text-tulip-tree-500">Message envoyé avec succès !</p>}
+          {error && <p className="text-red-500">Erreur lors de l’envoi. Réessayez.</p>}
+        </div>
 
         <p className="mt-6 text-center text-sm text-gray-400">
           Ou écrivez-moi à :{' '}

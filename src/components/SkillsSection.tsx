@@ -34,11 +34,12 @@ export default function SkillsSection() {
     <section
       ref={elementRef}
       className={`reveal z-10 mx-auto py-12 ${isVisible ? 'reveal-active' : ''}`}
+      aria-labelledby="skills-heading"
     >
       <div className="w-full overflow-hidden">
-        <div className="animate-marquee flex w-max py-3">
+        <ul className="animate-marquee flex w-max gap-6 py-3" role="list">
           {[...skills, ...skills].map((skill, index) => (
-            <div
+            <li
               key={index}
               className="group relative flex h-24 w-24 flex-shrink-0 flex-col items-center justify-center transition-transform duration-300 hover:scale-110"
             >
@@ -54,9 +55,9 @@ export default function SkillsSection() {
               <span className="mt-1 text-[0.7rem] text-gray-300 opacity-100 transition-opacity duration-300 group-hover:opacity-100 sm:opacity-0">
                 {skill.name}
               </span>
-            </div>
+            </li>
           ))}
-        </div>
+        </ul>
       </div>
     </section>
   );

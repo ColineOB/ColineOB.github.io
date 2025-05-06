@@ -28,23 +28,41 @@ export default function ProjectsSection() {
   return (
     <section
       ref={elementRef}
+      id="projects"
+      aria-labelledby="projects-heading"
       className={`section-container reveal ${isVisible ? 'reveal-active' : ''}`}
     >
-      <h2 className="mb-10 text-center text-3xl font-bold">Projets</h2>
+      <h2 id="projects-heading" className="mb-10 text-center text-3xl font-bold">
+        Projets
+      </h2>
 
-      <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+      <ul className="grid gap-8 md:grid-cols-2 lg:grid-cols-3" role="list">
         {projects.map((project, index) => (
-          <div key={index} className="neumorph-card neumorph-card-hover p-4">
-            <a href={project.link} target="_blank" rel="noopener noreferrer">
+          <li
+            key={index}
+            role="listitem"
+            className="neumorph-card neumorph-card-hover p-4 transition-transform hover:scale-[1.02]"
+          >
+            <a
+              href={project.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`Voir le projet ${project.title}`}
+            >
               <div className="relative aspect-[3/2] w-full overflow-hidden rounded-lg">
-                <Image src={project.image} alt={project.title} fill className="object-cover" />
+                <Image
+                  src={project.image}
+                  alt={`Aperçu du projet ${project.title}`}
+                  fill
+                  className="object-cover"
+                />
               </div>
               <h3 className="mt-2 text-xl font-bold">{project.title}</h3>
               <p className="text-sm text-gray-300">{project.description}</p>
             </a>
-          </div>
+          </li>
         ))}
-      </div>
+      </ul>
     </section>
   );
 }

@@ -31,18 +31,25 @@ export default function ServicesSection() {
   ];
 
   return (
-    <section className="section-container">
-      <h2 className="mb-10 text-center text-3xl font-bold">Services</h2>
+    <section id="services" aria-labelledby="services-heading" className="section-container">
+      <h2 id="services-heading" className="mb-10 text-center text-3xl font-bold">
+        Services
+      </h2>
+
       <div
         ref={elementRef}
-        className={`reveal grid gap-4 md:grid-cols-2 lg:grid-cols-5 ${isVisible ? 'reveal-active' : ''}`}
+        className={`reveal grid gap-4 md:grid-cols-2 lg:grid-cols-5 ${
+          isVisible ? 'reveal-active' : ''
+        }`}
       >
-        {services.map((service, index) => (
-          <div key={index} className="neumorph-card p-6 transition-transform hover:scale-[1.02]">
-            <h3 className="mb-2 text-xl font-semibold text-neon">{service.title}</h3>
-            <p className="text-sm text-gray-300">{service.description}</p>
-          </div>
-        ))}
+        <ul className="contents" role="list">
+          {services.map((service, index) => (
+            <li key={index} className="neumorph-card p-6 transition-transform hover:scale-[1.02]">
+              <h3 className="mb-2 text-xl font-semibold text-neon">{service.title}</h3>
+              <p className="text-sm text-gray-300">{service.description}</p>
+            </li>
+          ))}
+        </ul>
       </div>
     </section>
   );
