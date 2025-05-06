@@ -4,6 +4,7 @@ import { useEffect, useRef } from 'react';
 export function useAutoScroll(speed = 0.3) {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const isPausedRef = useRef(false);
+  const isTouchingRef = useRef(false);
 
   useEffect(() => {
     const el = containerRef.current;
@@ -12,10 +13,8 @@ export function useAutoScroll(speed = 0.3) {
     let frameId: number;
 
     const scroll = () => {
-      if (!isPausedRef.current && el.scrollWidth > el.clientWidth) {
+      if (!isPausedRef.current && !isTouchingRef.current && el.scrollWidth > el.clientWidth) {
         el.scrollLeft += speed;
-
-        // Looping back
         if (el.scrollLeft >= el.scrollWidth - el.clientWidth) {
           el.scrollLeft = 0;
         }
@@ -23,25 +22,35 @@ export function useAutoScroll(speed = 0.3) {
       frameId = requestAnimationFrame(scroll);
     };
 
-    const pause = () => (isPausedRef.current = true);
-    const resume = () => (isPausedRef.current = false);
+    const pause = () => {
+      isPausedRef.current = true;
+    };
+
+    const resume = () => {
+      isPausedRef.current = false;
+    };
+
+    const onTouchStart = () => {
+      isTouchingRef.current = true;
+    };
+
+    const onTouchEnd = () => {
+      isTouchingRef.current = false;
+    };
 
     el.addEventListener('mouseenter', pause);
     el.addEventListener('mouseleave', resume);
+    el.addEventListener('touchstart', onTouchStart);
+    el.addEventListener('touchend', onTouchEnd);
 
-    // Touch interactions for mobile
-    el.addEventListener('touchstart', pause);
-    el.addEventListener('touchend', resume);
-
-    // Start scrolling
     frameId = requestAnimationFrame(scroll);
 
     return () => {
       cancelAnimationFrame(frameId);
       el.removeEventListener('mouseenter', pause);
       el.removeEventListener('mouseleave', resume);
-      el.removeEventListener('touchstart', pause);
-      el.removeEventListener('touchend', resume);
+      el.removeEventListener('touchstart', onTouchStart);
+      el.removeEventListener('touchend', onTouchEnd);
     };
   }, [speed]);
 
