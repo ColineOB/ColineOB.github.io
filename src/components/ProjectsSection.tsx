@@ -1,23 +1,27 @@
 'use client';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
+import Image from 'next/image';
 
 export default function ProjectsSection() {
   const { elementRef, isVisible } = useScrollReveal();
   const projects = [
     {
-      title: 'Projet 1',
-      tech: 'différents techno',
-      description: 'une petite description du projet 1.',
+      title: 'FishEye',
+      description: 'Un site de portfolio pour photographes avec filtres dynamiques.',
+      link: 'https://fish-eye-photo.vercel.app/',
+      image: '/images/screens/fisheye.png',
     },
     {
-      title: 'Projet 2',
-      tech: 'différents techno',
-      description: 'une petite description du projet 2.',
+      title: 'Kasa',
+      description: 'Application de location immobilière type Airbnb avec React.',
+      link: 'https://kasa-seven-murex.vercel.app/',
+      image: '/images/screens/kasa.png',
     },
     {
-      title: 'Projet 3',
-      tech: 'différents techno',
-      description: 'une petite description du projet...et bien disons 3',
+      title: 'Oh My Food',
+      description: 'Un site vitrine pour restaurants avec animations CSS poussées.',
+      link: 'https://oh-myfood-rose.vercel.app/',
+      image: '/images/screens/ohmyfood.png',
     },
   ];
 
@@ -29,11 +33,19 @@ export default function ProjectsSection() {
       <h2 className="mb-10 text-center text-3xl font-bold">Projets</h2>
 
       <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-        {projects.map((proj, i) => (
-          <div key={i} className="neumorph-card p-6 transition-transform hover:scale-[1.02]">
-            <h3 className="mb-1 text-xl font-semibold text-neon">{proj.title}</h3>
-            <p className="mb-2 text-sm italic text-gray-400">{proj.tech}</p>
-            <p className="text-sm text-gray-300">{proj.description}</p>
+        {projects.map((project, index) => (
+          <div key={index} className="neumorph-card p-4">
+            <a href={project.link} target="_blank" rel="noopener noreferrer">
+              <Image
+                src={project.image}
+                alt={project.title}
+                width={600}
+                height={400}
+                className="rounded-lg"
+              />
+              <h3 className="mt-2 text-xl font-bold">{project.title}</h3>
+              <p className="text-sm text-gray-300">{project.description}</p>
+            </a>
           </div>
         ))}
       </div>
