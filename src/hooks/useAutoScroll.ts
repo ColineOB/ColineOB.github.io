@@ -4,7 +4,6 @@ import { useEffect, useRef } from 'react';
 export function useAutoScroll(speed = 0.3) {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const isPausedRef = useRef(false);
-  const isTouchingRef = useRef(false);
 
   useEffect(() => {
     const el = containerRef.current;
@@ -13,44 +12,41 @@ export function useAutoScroll(speed = 0.3) {
     let frameId: number;
 
     const scroll = () => {
-      if (!isPausedRef.current && !isTouchingRef.current && el.scrollWidth > el.clientWidth) {
+      if (!isPausedRef.current && el.scrollWidth > el.clientWidth) {
         el.scrollLeft += speed;
-        if (el.scrollLeft >= el.scrollWidth - el.clientWidth) {
+        if (el.scrollLeft >= el.scrollWidth / 2) {
           el.scrollLeft = 0;
         }
       }
       frameId = requestAnimationFrame(scroll);
     };
 
+    // Pause au toucher / clic
     const pause = () => {
       isPausedRef.current = true;
     };
 
+    // Reprise automatique
     const resume = () => {
       isPausedRef.current = false;
     };
 
-    const onTouchStart = () => {
-      isTouchingRef.current = true;
-    };
-
-    const onTouchEnd = () => {
-      isTouchingRef.current = false;
-    };
-
-    el.addEventListener('mouseenter', pause);
+    // Événements compatibles mobile/desktop
+    el.addEventListener('pointerdown', pause);
+    el.addEventListener('pointerup', resume);
+    el.addEventListener('pointercancel', resume);
+    el.addEventListener('touchend', resume);
     el.addEventListener('mouseleave', resume);
-    el.addEventListener('touchstart', onTouchStart);
-    el.addEventListener('touchend', onTouchEnd);
 
     frameId = requestAnimationFrame(scroll);
 
     return () => {
       cancelAnimationFrame(frameId);
-      el.removeEventListener('mouseenter', pause);
+      el.removeEventListener('pointerdown', pause);
+      el.removeEventListener('pointerup', resume);
+      el.removeEventListener('pointercancel', resume);
+      el.removeEventListener('touchend', resume);
       el.removeEventListener('mouseleave', resume);
-      el.removeEventListener('touchstart', onTouchStart);
-      el.removeEventListener('touchend', onTouchEnd);
     };
   }, [speed]);
 
