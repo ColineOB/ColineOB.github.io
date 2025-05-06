@@ -2,9 +2,32 @@ import type { Metadata } from 'next';
 import './styles/globals.css';
 
 export const metadata: Metadata = {
-  title: 'Coline Cantelou – Développeuse Web',
+  title: 'Coline Cantelou – Développeuse Web Freelance',
   description:
-    'Développeuse web freelance. Création de sites modernes, performants et élégants avec React, Next.js, WordPress et PrestaShop.',
+    'Création de sites modernes, performants et élégants avec React, Next.js, WordPress et PrestaShop.',
+  metadataBase: new URL('https://coline-portfolio.vercel.app/'),
+  openGraph: {
+    title: 'Coline Cantelou – Développeuse Web Freelance',
+    description:
+      'Création de sites modernes, performants et élégants avec React, Next.js, WordPress et PrestaShop.',
+    url: '/',
+    siteName: 'Coline Cantelou Portfolio',
+    images: [
+      {
+        url: '/images/preview.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Aperçu du site de Coline Cantelou',
+      },
+    ],
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Coline Cantelou – Développeuse Web',
+    description: 'Sites performants avec React, Next.js, WordPress et PrestaShop.',
+    images: ['/images/preview.jpg'],
+  },
   icons: {
     icon: '/favicon.ico',
   },
