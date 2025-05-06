@@ -6,6 +6,21 @@ export const metadata: Metadata = {
   description:
     'Création de sites modernes, performants et élégants avec React, Next.js, WordPress et PrestaShop.',
   metadataBase: new URL('https://coline-portfolio.vercel.app/'),
+  keywords: [
+    'Coline Cantelou',
+    'développeuse web',
+    'freelance',
+    'portfolio',
+    'React',
+    'Next.js',
+    'WordPress',
+    'PrestaShop',
+    'création de site',
+    'site vitrine',
+    'site professionnel',
+    'développement web',
+  ],
+  authors: [{ name: 'Coline Cantelou', url: 'https://coline-portfolio.vercel.app/' }],
   openGraph: {
     title: 'Coline Cantelou – Développeuse Web Freelance',
     description:
