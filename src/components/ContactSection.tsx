@@ -1,8 +1,18 @@
 'use client';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
+import { useState, useEffect } from 'react';
 
 export default function ContactSection() {
   const { elementRef, isVisible } = useScrollReveal();
+  const [sent, setSent] = useState(false);
+
+  useEffect(() => {
+    if (sent) {
+      const timer = setTimeout(() => setSent(false), 5000);
+      return () => clearTimeout(timer);
+    }
+  }, [sent]);
+
   return (
     <section
       ref={elementRef}
@@ -12,11 +22,18 @@ export default function ContactSection() {
       <h2 className="mb-10 text-center text-3xl font-bold">Contact</h2>
 
       <div className="neumorph-card mx-auto max-w-xl p-6">
-        <form className="flex flex-col gap-4">
+        <form
+          action="https://formspree.io/f/xwpooznr"
+          method="POST"
+          onSubmit={() => setSent(true)}
+          className="flex flex-col gap-4"
+        >
           <div>
             <label className="mb-1 block text-sm text-gray-300">Nom</label>
             <input
               type="text"
+              name="name"
+              required
               className="bg-steel-gray-500 w-full rounded-md px-4 py-2 text-white outline-none focus:ring-2 focus:ring-neon"
               placeholder="Votre nom"
             />
@@ -26,6 +43,8 @@ export default function ContactSection() {
             <label className="mb-1 block text-sm text-gray-300">Email</label>
             <input
               type="email"
+              name="email"
+              required
               className="bg-steel-gray-500 w-full rounded-md px-4 py-2 text-white outline-none focus:ring-2 focus:ring-neon"
               placeholder="email@exemple.com"
             />
@@ -34,6 +53,8 @@ export default function ContactSection() {
           <div>
             <label className="mb-1 block text-sm text-gray-300">Message</label>
             <textarea
+              name="message"
+              required
               rows={4}
               className="bg-steel-gray-500 w-full rounded-md px-4 py-2 text-white outline-none focus:ring-2 focus:ring-neon"
               placeholder="Écrivez votre message ici..."
@@ -47,6 +68,10 @@ export default function ContactSection() {
             Envoyer
           </button>
         </form>
+
+        {sent && (
+          <p className="mt-4 text-center text-sm text-green-400">✅ Message envoyé avec succès !</p>
+        )}
 
         <p className="mt-6 text-center text-sm text-gray-400">
           Ou écrivez-moi à :{' '}
