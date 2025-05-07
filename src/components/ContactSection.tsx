@@ -1,41 +1,38 @@
 'use client';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 export default function ContactSection() {
   const { elementRef, isVisible } = useScrollReveal();
   const [sent, setSent] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
+  const formRef = useRef<HTMLFormElement>(null);
 
   useEffect(() => {
-    if (sent || error) {
-      const timer = setTimeout(() => {
-        setSent(false);
-        setError(false);
-      }, 5000);
-      return () => clearTimeout(timer);
+    let timer: NodeJS.Timeout;
+    if (sent) {
+      timer = setTimeout(() => setSent(false), 5000);
     }
-  }, [sent, error]);
+    return () => clearTimeout(timer);
+  }, [sent]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
     setError(false);
 
-    const form = e.currentTarget;
-    const data = new FormData(form);
-
     try {
+      const formData = new FormData(formRef.current as HTMLFormElement);
       const res = await fetch('https://formspree.io/f/xwpooznr', {
         method: 'POST',
         headers: { Accept: 'application/json' },
-        body: data,
+        body: formData,
       });
 
       if (res.ok) {
         setSent(true);
-        form.reset();
+        formRef.current!.reset();
       } else {
         setError(true);
       }
@@ -55,7 +52,7 @@ export default function ContactSection() {
       <h2 className="mb-10 text-center text-3xl font-bold">Contact</h2>
 
       <div className="neumorph-card mx-auto max-w-xl p-6">
-        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+        <form ref={formRef} onSubmit={handleSubmit} className="flex flex-col gap-4">
           <div>
             <label className="mb-1 block text-sm text-gray-300">Nom</label>
             <input
@@ -98,6 +95,7 @@ export default function ContactSection() {
           </button>
         </form>
 
+        {/* Messages de statut */}
         <div aria-live="polite" className="mt-4 text-center text-sm">
           {sent && <p className="text-tulip-tree-500">Message envoyé avec succès !</p>}
           {error && <p className="text-red-500">Erreur lors de l’envoi. Réessayez.</p>}

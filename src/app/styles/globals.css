@@ -91,6 +91,7 @@
     position: relative;
     aspect-ratio: 1 / 1;
     overflow: hidden;
+    padding: 20px;
     background: #fff;
     border-radius: 9999px;
     opacity: 0.9;

@@ -10,6 +10,7 @@ export default function SkillsSection() {
   useEffect(() => {
     const el = scrollRef.current;
     if (!el) return;
+    el.style.animationPlayState = 'running';
 
     // Pause and resume logic
     const pauseScroll = () => (el.style.animationPlayState = 'paused');
@@ -76,6 +77,7 @@ export default function SkillsSection() {
                   width={32}
                   height={32}
                   className="object-contain"
+                  style={{ width: 'auto', height: 'auto' }}
                 />
               </div>
               <span className="mt-1 text-[0.7rem] text-gray-300 opacity-100 transition-opacity duration-300 group-hover:opacity-100 sm:opacity-0">
