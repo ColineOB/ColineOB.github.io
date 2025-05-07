@@ -19,13 +19,19 @@ export const metadata: Metadata = {
     'site vitrine',
     'site professionnel',
     'développement web',
+    'web design',
+    'SEO',
+    'front-end',
+    'back-end',
+    'UX/UI',
+    'JavaScript',
   ],
   authors: [{ name: 'Coline Cantelou', url: 'https://coline-portfolio.vercel.app/' }],
   openGraph: {
     title: 'Coline Cantelou – Développeuse Web Freelance',
     description:
       'Création de sites modernes, performants et élégants avec React, Next.js, WordPress et PrestaShop.',
-    url: '/',
+    url: 'https://coline-portfolio.vercel.app/',
     siteName: 'Coline Cantelou Portfolio',
     images: [
       {
@@ -35,6 +41,7 @@ export const metadata: Metadata = {
         alt: 'Aperçu du site de Coline Cantelou',
       },
     ],
+    locale: 'fr_FR',
     type: 'website',
   },
   twitter: {
@@ -45,7 +52,14 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: '/favicon.ico',
+    shortcut: '/favicon.ico',
+    apple: '/apple-touch-icon.png',
   },
+  robots: {
+    index: true,
+    follow: true,
+  },
+  themeColor: '#0c0c0d',
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
