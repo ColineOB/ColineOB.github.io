@@ -1,21 +1,36 @@
 'use client';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
-import { useAutoScroll } from '@/hooks/useAutoScroll';
 import Image from 'next/image';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef } from 'react';
 
 export default function SkillsSection() {
   const { elementRef, isVisible } = useScrollReveal(0.1, 0);
-  const [speed, setSpeed] = useState(0.4);
+  const scrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const isMobile = window.matchMedia('(max-width: 768px)').matches;
-      setSpeed(isMobile ? 0.8 : 0.4);
-    }
-  }, []);
+    const el = scrollRef.current;
+    if (!el) return;
 
-  const scrollRef = useAutoScroll(speed);
+    // Pause and resume logic
+    const pauseScroll = () => (el.style.animationPlayState = 'paused');
+    const resumeScroll = () => (el.style.animationPlayState = 'running');
+
+    // Mouse and touch events
+    const startEvents = ['mousedown', 'touchstart'];
+    const endEvents = ['mouseup', 'touchend'];
+
+    startEvents.forEach(event => el.addEventListener(event, pauseScroll));
+    endEvents.forEach(event => el.addEventListener(event, resumeScroll));
+
+    // Ensure touchend also resumes animation on mobile
+    el.addEventListener('touchend', resumeScroll);
+
+    return () => {
+      startEvents.forEach(event => el.removeEventListener(event, pauseScroll));
+      endEvents.forEach(event => el.removeEventListener(event, resumeScroll));
+      el.removeEventListener('touchend', resumeScroll);
+    };
+  }, []);
 
   const skills = [
     { name: 'HTML5', file: 'HTML5.png' },
